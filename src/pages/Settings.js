@@ -13,8 +13,7 @@ import { FaHome, FaUser } from "react-icons/fa";
 import Toggle from "../components/Toggle";
 
 export default function Settings() {
-    const { user, setUser, setNotes, settings, setSettings } =
-        useGlobalContext();
+    const { user, setNotes, settings, setSettings } = useGlobalContext();
 
     const [settingsCategory, setSettingsCategory] = useState("account");
     const [registerEmail, setRegisterEmail] = useState("");
@@ -34,11 +33,7 @@ export default function Settings() {
     const login = async (e) => {
         e.preventDefault();
         try {
-            const user = await signInWithEmailAndPassword(
-                auth,
-                loginEmail,
-                loginPassword
-            );
+            await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
             setLoginEmail("");
             setLoginPassword("");
             setErrorMessage("");
@@ -51,7 +46,7 @@ export default function Settings() {
     const register = async (e) => {
         e.preventDefault();
         try {
-            const user = await createUserWithEmailAndPassword(
+            await createUserWithEmailAndPassword(
                 auth,
                 registerEmail,
                 registerPassword

@@ -35,14 +35,8 @@ function Notes({ data }) {
                 [newId]: "",
             },
         });
-
         setLatestNote(newId);
     };
-
-    // TESTING
-    useEffect(() => {
-        // console.log(notes);
-    }, [settings]);
 
     return (
         <div

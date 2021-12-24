@@ -83,9 +83,6 @@ function Note({ data }) {
             [settings.noteCategory]: newNotes,
         });
     };
-    useEffect(() => {
-        // console.log(notes[settings.noteCategory]);
-    }, [notes]);
 
     // Set focus on newly created notes
     useEffect(() => {
