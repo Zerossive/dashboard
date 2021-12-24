@@ -1,8 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useGlobalContext } from "../context";
 import ButtonInline from "./ButtonInline";
 import { ref, update } from "firebase/database";
-import { useEffect } from "react/cjs/react.development";
 import { FaTrash, FaChevronUp, FaChevronDown } from "react-icons/fa";
 import TextareaAutosize from "react-textarea-autosize";
 

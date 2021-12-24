@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ref, update } from "firebase/database";
-import React from "react";
 import Note from "./Note";
 import Button from "./Button";
 import { useGlobalContext } from "../context";
