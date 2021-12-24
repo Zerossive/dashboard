@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import Button from "../components/Button";
 
 export default function Home() {
-    const { db } = getDatabase();
-
     const { settings, user } = useGlobalContext();
+
+    const db = getDatabase();
 
     return (
         // Container
@@ -28,7 +28,6 @@ export default function Home() {
             {/* Notes */}
             {settings.showNotes && user && (
                 <div className='w-full lg:flex-1 order-3 p-6'>
-                    {/* TESTING */}
                     <Notes data={{ db: db }} />
                 </div>
             )}
