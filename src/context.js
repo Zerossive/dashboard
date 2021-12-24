@@ -23,12 +23,12 @@ const AppProvider = ({ children }) => {
 
     // Firebase DB setup
     const [settings, setSettings] = useState({
-        notesReversed: false,
-        noteCategory: "General",
-        noteCategoryList: ["General"],
-        showWeather: true,
-        showCalendar: true,
-        showNotes: true,
+        // notesReversed: false,
+        // noteCategory: "General",
+        // noteCategoryList: ["General"],
+        // showWeather: true,
+        // showCalendar: true,
+        // showNotes: true,
     });
     const [notes, setNotes] = useState({});
     useEffect(() => {
@@ -43,6 +43,12 @@ const AppProvider = ({ children }) => {
                         // console.log(snapshot.val());
                         const data = snapshot.val();
                         setSettings((prevState) => ({
+                            notesReversed: false,
+                            noteCategory: "General",
+                            noteCategoryList: ["General"],
+                            showWeather: true,
+                            showCalendar: true,
+                            showNotes: true,
                             ...prevState,
                             ...data.settings,
                         }));

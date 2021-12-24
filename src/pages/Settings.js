@@ -78,28 +78,30 @@ export default function Settings() {
     return (
         <div className='flex flex-wrap lg:flex-nowrap overflow-hidden animate-fadein'>
             {/* Settings Category */}
-            <div className='bg-midground w-full lg:w-auto lg:h-screen flex flex-col'>
-                <ButtonInline
-                    height='50px'
-                    onClick={() => {
-                        setSettingsCategory("account");
-                    }}
-                    classes='lg:justify-start px-12'
-                >
-                    <FaUser />
-                    Account
-                </ButtonInline>
-                <ButtonInline
-                    height='50px'
-                    onClick={() => {
-                        setSettingsCategory("home");
-                    }}
-                    classes='lg:justify-start px-12'
-                >
-                    <FaHome />
-                    Home
-                </ButtonInline>
-            </div>
+            {user && (
+                <div className='bg-midground w-full lg:w-auto lg:h-screen flex flex-col'>
+                    <ButtonInline
+                        height='50px'
+                        onClick={() => {
+                            setSettingsCategory("account");
+                        }}
+                        classes='lg:justify-start px-12'
+                    >
+                        <FaUser />
+                        Account
+                    </ButtonInline>
+                    <ButtonInline
+                        height='50px'
+                        onClick={() => {
+                            setSettingsCategory("home");
+                        }}
+                        classes='lg:justify-start px-12'
+                    >
+                        <FaHome />
+                        Home
+                    </ButtonInline>
+                </div>
+            )}
 
             {/* Settings Details */}
             {/* Account Settings */}
