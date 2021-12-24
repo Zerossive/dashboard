@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
 import { useGlobalContext } from "../context";
-import { get, getDatabase, ref, child, update, set } from "firebase/database";
+import { getDatabase } from "firebase/database";
 import Calendar from "../components/Calendar";
 import Notes from "../components/Notes";
 

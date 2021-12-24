@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useGlobalContext } from "../context";
 import ButtonInline from "./ButtonInline";
-import { get, getDatabase, ref, child, update, set } from "firebase/database";
+import { ref, update } from "firebase/database";
 import { useEffect } from "react/cjs/react.development";
 import { FaTrash, FaChevronUp, FaChevronDown } from "react-icons/fa";
 import TextareaAutosize from "react-textarea-autosize";
@@ -92,7 +92,7 @@ function Note({ data }) {
         if (latestNote === noteId) {
             noteFocus.current.focus();
         }
-    }, []);
+    }, [latestNote, noteId]);
 
     return (
         <div className='bg-midground rounded-md overflow-hidden animate-growfadein'>

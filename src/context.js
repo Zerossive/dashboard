@@ -2,7 +2,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { auth } from "./firebase-config";
-import { get, getDatabase, ref, child, set } from "firebase/database";
+import { get, getDatabase, ref, child } from "firebase/database";
 
 const AppContext = React.createContext();
 
