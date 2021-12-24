@@ -10,6 +10,7 @@ function NotesDropdown({ data }) {
     const { settings, setSettings, user, notes, setNotes } = useGlobalContext();
 
     const [newCategoryName, setNewCategoryName] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleChangeCategory = (category) => {
         const updates = {};
@@ -37,16 +38,19 @@ function NotesDropdown({ data }) {
                 ],
             });
         } else {
+            setErrorMessage("No Duplicate or Empty Categories Allowed");
             console.log("No Duplicate or Empty Categories Allowed");
         }
         setNewCategoryName("");
     };
     const handleRemoveCategory = (category) => {
         if (settings.noteCategoryList.length <= 1) {
+            setErrorMessage("Cannot Delete Last Category");
             console.log("Cannot Delete Last Category");
             return;
         }
         if (settings.noteCategory === category) {
+            setErrorMessage("Cannot Delete Active Category");
             console.log("Cannot Delete Active Category");
             return;
         }
@@ -70,6 +74,16 @@ function NotesDropdown({ data }) {
 
     return (
         <div className='flex flex-wrap gap-6 justify-center w-full'>
+            {errorMessage && (
+                <button
+                    className='bg-error w-full flex p-3 rounded-md justify-center animate-growfadein'
+                    onClick={() => {
+                        setErrorMessage("");
+                    }}
+                >
+                    <p>{errorMessage} (tap to close)</p>
+                </button>
+            )}
             {settings.noteCategoryList.map((category, i) => {
                 return (
                     <div className='flex w-full gap-6' key={i}>

@@ -15,6 +15,7 @@ function Note({ data }) {
         notes[settings.noteCategory][noteId]
     );
 
+    // Update note value
     const handleNoteChange = (e) => {
         const currentValue = e.target.value;
         setNoteText(currentValue);
@@ -35,6 +36,90 @@ function Note({ data }) {
                 [noteId]: currentValue,
             },
         });
+    };
+    // Handle special inputs
+    const handleKeyDown = (e) => {
+        const startPos = e.target.selectionStart;
+        let text = e.target;
+        if (e.key === "Tab") {
+            // Case for "Tab"
+            text.value =
+                text.value.slice(0, startPos) +
+                "\t" +
+                text.value.slice(startPos);
+            e.preventDefault();
+            text.setSelectionRange(
+                startPos + "\t".length,
+                startPos + "\t".length
+            );
+        } else if (e.key === " " && text.value[startPos - 1] == "*") {
+            // Case for "Bullet Point"
+            text.value =
+                text.value.slice(0, startPos - 1) +
+                " \u25CF " +
+                text.value.slice(startPos);
+            e.preventDefault();
+            text.setSelectionRange(
+                startPos + "\t".length + 1,
+                startPos + "\t".length + 1
+            );
+        } else if (e.key === ">" && text.value[startPos - 1] == "-") {
+            // Case for "Right Arrow"
+            text.value =
+                text.value.slice(0, startPos - 1) +
+                "\u1405" +
+                text.value.slice(startPos);
+            e.preventDefault();
+            text.setSelectionRange(
+                startPos + "\t".length - 1,
+                startPos + "\t".length - 1
+            );
+        } else if (e.key === "-" && text.value[startPos - 1] == "<") {
+            // Case for "Left Arrow"
+            text.value =
+                text.value.slice(0, startPos - 1) +
+                "\u140a" +
+                text.value.slice(startPos);
+            e.preventDefault();
+            text.setSelectionRange(
+                startPos + "\t".length - 1,
+                startPos + "\t".length - 1
+            );
+        } else if (e.key === "-" && text.value[startPos - 1] == "+") {
+            // Case for "Plus or Minus"
+            text.value =
+                text.value.slice(0, startPos - 1) +
+                "\u00b1" +
+                text.value.slice(startPos);
+            e.preventDefault();
+            text.setSelectionRange(
+                startPos + "\t".length - 1,
+                startPos + "\t".length - 1
+            );
+        } else if (e.key === "3" && text.value[startPos - 1] == "<") {
+            // Case for "Heart"
+            text.value =
+                text.value.slice(0, startPos - 1) +
+                "\u2665" +
+                text.value.slice(startPos);
+            e.preventDefault();
+            text.setSelectionRange(
+                startPos + "\t".length - 1,
+                startPos + "\t".length - 1
+            );
+        } else if (e.key === ")" && text.value[startPos - 1] == ":") {
+            // Case for "Smile"
+            text.value =
+                text.value.slice(0, startPos - 1) +
+                "\u263a" +
+                text.value.slice(startPos);
+            e.preventDefault();
+            text.setSelectionRange(
+                startPos + "\t".length - 1,
+                startPos + "\t".length - 1
+            );
+        }
+        handleNoteChange(e);
     };
 
     const handleMoveNote = (direction) => {
@@ -120,6 +205,7 @@ function Note({ data }) {
                         className='bg-transparent py-2 w-full border-b-2 border-foreground focus:border-accent focus:outline-none resize-none m-auto'
                         value={noteText}
                         onChange={handleNoteChange}
+                        onKeyDown={handleKeyDown}
                         ref={noteFocus}
                     ></TextareaAutosize>
                 </div>

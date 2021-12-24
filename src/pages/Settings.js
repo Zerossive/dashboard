@@ -114,7 +114,7 @@ export default function Settings() {
                     {/* Error Message */}
                     {errorMessage && (
                         <button
-                            className='bg-error w-full flex p-3 rounded-md justify-center'
+                            className='bg-error w-full flex p-3 rounded-md justify-center animate-growfadein'
                             onClick={() => {
                                 setErrorMessage("");
                             }}
