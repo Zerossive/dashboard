@@ -1,8 +1,11 @@
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useGlobalContext } from "../context";
 import Button from "./Button";
 
 const Navbar = () => {
+    const { settings } = useGlobalContext();
+
     return (
         <nav className='bg-foreground flex content-center gap-3 p-3 h-16'>
             <Link to='/' tabIndex='-1'>
@@ -26,9 +29,18 @@ const Navbar = () => {
                 <Button>Settings</Button>
             </Link>
             <div className='flex-grow'></div>
-            <Button>
-                <FaUser />
-            </Button>
+            <Link to='/settings'>
+                {!settings.profileImageUrl && (
+                    <FaUser className='h-full w-auto p-2' />
+                )}
+                {settings.profileImageUrl && (
+                    <img
+                        src={settings.profileImageUrl}
+                        alt='profile image'
+                        className='h-full p-1 rounded-lg'
+                    />
+                )}
+            </Link>
         </nav>
     );
 };

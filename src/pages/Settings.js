@@ -22,6 +22,9 @@ export default function Settings() {
     const [loginPassword, setLoginPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
+    // User Profile
+    const [profileImageUrl, setProfileImageUrl] = useState("");
+
     // Home Settings
     const [showWeather, setShowWeather] = useState(settings.showWeather);
     const [showCalendar, setShowCalendar] = useState(settings.showCalendar);
@@ -61,6 +64,12 @@ export default function Settings() {
     const logout = async () => {
         await signOut(auth);
         setNotes({});
+    };
+
+    // Profile
+    const handleChangeUserImage = () => {
+        handleSettingsChange("profileImageUrl", profileImageUrl);
+        setProfileImageUrl("");
     };
 
     // Notes
@@ -181,13 +190,49 @@ export default function Settings() {
                             <Button type='submit'>Sign Up</Button>
                         </form>
                     )}
-                    {/* Logout */}
+                    {/* Already Logged In */}
                     {user && (
-                        <div className='flex flex-col flex-wrap gap-3'>
-                            <h4>User Logged In: {user?.email}</h4>
-
-                            <Button onClick={logout}>Sign Out</Button>
-                        </div>
+                        <>
+                            {/* Sign Out */}
+                            <div className='w-full lg:w-auto'>
+                                <h2 className='text-xl pb-3'>
+                                    User Logged In: {user?.email}
+                                </h2>
+                                <Button onClick={logout}>Sign Out</Button>
+                            </div>
+                            {/* User Profile */}
+                            <div className='w-full lg:w-auto flex flex-col gap-3'>
+                                <h2 className='text-xl'>User Profile</h2>
+                                {/* Profile Image */}
+                                <div className='flex flex-wrap gap-3'>
+                                    <h3 className='text-md w-full'>
+                                        {!settings.profileImageUrl && "No "}
+                                        Current Profile Image:
+                                    </h3>
+                                    {settings.profileImageUrl && (
+                                        <div className='w-full'>
+                                            <img
+                                                src={settings.profileImageUrl}
+                                                alt='profile image'
+                                                className='rounded-md h-32'
+                                            />
+                                        </div>
+                                    )}
+                                    <input
+                                        type='text'
+                                        className='bg-foreground rounded-md p-3 flex-grow'
+                                        placeholder='Insert New Image URL'
+                                        value={profileImageUrl}
+                                        onChange={(e) =>
+                                            setProfileImageUrl(e.target.value)
+                                        }
+                                    />
+                                    <Button onClick={handleChangeUserImage}>
+                                        Submit
+                                    </Button>
+                                </div>
+                            </div>
+                        </>
                     )}
                 </div>
             )}
@@ -237,6 +282,20 @@ export default function Settings() {
                                 }}
                             />
                         </div>
+                    </div>
+                    {/* Calendar */}
+                    <div className='w-full lg:w-auto'>
+                        <h2 className='text-xl pb-3'>Calendar</h2>
+                        <Toggle
+                            text='12 Hour Clock'
+                            checked={settings.formatAMPM}
+                            onClick={() => {
+                                handleSettingsChange(
+                                    "formatAMPM",
+                                    !settings.formatAMPM
+                                );
+                            }}
+                        />
                     </div>
                     {/* Notes */}
                     <div className='w-full lg:w-auto'>

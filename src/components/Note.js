@@ -52,7 +52,7 @@ function Note({ data }) {
                 startPos + "\t".length,
                 startPos + "\t".length
             );
-        } else if (e.key === " " && text.value[startPos - 1] == "*") {
+        } else if (e.key === " " && text.value[startPos - 1] === "*") {
             // Case for "Bullet Point"
             text.value =
                 text.value.slice(0, startPos - 1) +
@@ -63,7 +63,7 @@ function Note({ data }) {
                 startPos + "\t".length + 1,
                 startPos + "\t".length + 1
             );
-        } else if (e.key === ">" && text.value[startPos - 1] == "-") {
+        } else if (e.key === ">" && text.value[startPos - 1] === "-") {
             // Case for "Right Arrow"
             text.value =
                 text.value.slice(0, startPos - 1) +
@@ -74,7 +74,7 @@ function Note({ data }) {
                 startPos + "\t".length - 1,
                 startPos + "\t".length - 1
             );
-        } else if (e.key === "-" && text.value[startPos - 1] == "<") {
+        } else if (e.key === "-" && text.value[startPos - 1] === "<") {
             // Case for "Left Arrow"
             text.value =
                 text.value.slice(0, startPos - 1) +
@@ -85,7 +85,7 @@ function Note({ data }) {
                 startPos + "\t".length - 1,
                 startPos + "\t".length - 1
             );
-        } else if (e.key === "-" && text.value[startPos - 1] == "+") {
+        } else if (e.key === "-" && text.value[startPos - 1] === "+") {
             // Case for "Plus or Minus"
             text.value =
                 text.value.slice(0, startPos - 1) +
@@ -96,7 +96,7 @@ function Note({ data }) {
                 startPos + "\t".length - 1,
                 startPos + "\t".length - 1
             );
-        } else if (e.key === "3" && text.value[startPos - 1] == "<") {
+        } else if (e.key === "3" && text.value[startPos - 1] === "<") {
             // Case for "Heart"
             text.value =
                 text.value.slice(0, startPos - 1) +
@@ -107,7 +107,7 @@ function Note({ data }) {
                 startPos + "\t".length - 1,
                 startPos + "\t".length - 1
             );
-        } else if (e.key === ")" && text.value[startPos - 1] == ":") {
+        } else if (e.key === ")" && text.value[startPos - 1] === ":") {
             // Case for "Smile"
             text.value =
                 text.value.slice(0, startPos - 1) +

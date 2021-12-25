@@ -49,6 +49,7 @@ const AppProvider = ({ children }) => {
                             showWeather: true,
                             showCalendar: true,
                             showNotes: true,
+                            formatAMPM: true,
                             ...prevState,
                             ...data.settings,
                         }));
