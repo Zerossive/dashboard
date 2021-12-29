@@ -19,7 +19,7 @@
         },
         {
             "src": "maskable.png",
-            "sizes": "640x640",
+            "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
         }

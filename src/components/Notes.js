@@ -6,8 +6,7 @@ import { useGlobalContext } from "../context";
 import { FaListUl, FaPlus } from "react-icons/fa";
 import NotesDropdown from "./NotesDropdown";
 
-function Notes(data) {
-    const { db } = data;
+function Notes({ db }) {
     const { user, notes, setNotes, settings } = useGlobalContext();
 
     const [latestNote, setLatestNote] = useState("");

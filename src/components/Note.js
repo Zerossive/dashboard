@@ -5,8 +5,7 @@ import { ref, update } from "firebase/database";
 import { FaTrash, FaChevronUp, FaChevronDown } from "react-icons/fa";
 import TextareaAutosize from "react-textarea-autosize";
 
-function Note(data) {
-    const { noteId, db, latestNote } = data;
+function Note({ noteId, db, latestNote }) {
     const { user, notes, setNotes, settings } = useGlobalContext();
 
     const noteFocus = useRef(null);
@@ -155,7 +154,6 @@ function Note(data) {
         noteEntries[clickedIndex][0] = noteEntries[newIndex][0];
         noteEntries[newIndex][0] = tempValue;
         const newNotes = Object.fromEntries(noteEntries);
-        // console.log(noteEntries);
 
         // Update notes
         const updates = {};
