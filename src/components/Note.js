@@ -5,7 +5,7 @@ import { ref, update } from "firebase/database";
 import { FaTrash, FaChevronUp, FaChevronDown } from "react-icons/fa";
 import TextareaAutosize from "react-textarea-autosize";
 
-function Note({ data }) {
+function Note(data) {
     const { noteId, db, latestNote } = data;
     const { user, notes, setNotes, settings } = useGlobalContext();
 
@@ -227,7 +227,6 @@ function Note({ data }) {
                             delete tempNotes[settings.noteCategory][noteId];
                             setNotes(tempNotes);
                         }}
-                        hoverColor='hsl(0,50%,70%)'
                     >
                         <FaTrash />
                     </ButtonInline>

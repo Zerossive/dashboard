@@ -7,7 +7,7 @@ function Calendar() {
     return (
         <div className='w-full flex flex-col items-center'>
             {/* Time & Date */}
-            <div className='w-full flex flex-col items-center gap-6'>
+            <div className='w-full flex flex-col items-center gap-6 text-center'>
                 <h1 className='text-6xl flex items-center gap-3'>
                     <Clock
                         format={`${settings.formatAMPM ? "h" : "H"}:mm`}

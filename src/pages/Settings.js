@@ -64,6 +64,7 @@ export default function Settings() {
     const logout = async () => {
         await signOut(auth);
         setNotes({});
+        setSettings({});
     };
 
     // Profile
@@ -213,7 +214,7 @@ export default function Settings() {
                                         <div className='w-full'>
                                             <img
                                                 src={settings.profileImageUrl}
-                                                alt='profile image'
+                                                alt='user profile'
                                                 className='rounded-md h-32'
                                             />
                                         </div>

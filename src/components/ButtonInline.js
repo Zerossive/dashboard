@@ -14,7 +14,7 @@ export default function ButtonInline(props) {
 
     return (
         <button
-            className={`select-none px-4 py-2 flex justify-center gap-6 items-center transition-all duration-75 dark:bg-midground dark:hover:bg-accent dark:active:bg-foreground tracking-widest ${classes}`}
+            className={`select-none px-4 py-2 flex justify-center gap-6 items-center transition-all duration-75 bg-midground lg:hover:bg-accent active:bg-foreground tracking-widest ${classes}`}
             aria-label={`${background} button`}
             style={{
                 background: `${background}`,

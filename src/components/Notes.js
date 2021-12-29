@@ -6,7 +6,7 @@ import { useGlobalContext } from "../context";
 import { FaListUl, FaPlus } from "react-icons/fa";
 import NotesDropdown from "./NotesDropdown";
 
-function Notes({ data }) {
+function Notes(data) {
     const { db } = data;
     const { user, notes, setNotes, settings } = useGlobalContext();
 
@@ -65,7 +65,10 @@ function Notes({ data }) {
             {/* Category List */}
             {showCategoryList && (
                 <div className='flex justify-center gap-6 animate-growY'>
-                    <NotesDropdown data={{ db: db, setShowCategoryList }} />
+                    <NotesDropdown
+                        db={db}
+                        setShowCategoryList={setShowCategoryList}
+                    />
                 </div>
             )}
 
@@ -75,83 +78,20 @@ function Notes({ data }) {
                     !settings.notesReversed && "flex-col-reverse"
                 } gap-6`}
             >
-                {
-                    notes &&
-                        notes[settings.noteCategory] &&
-                        Object.entries(notes[settings.noteCategory]).map(
-                            ([key, value]) => {
-                                return (
-                                    <Note
-                                        key={key}
-                                        data={{
-                                            noteId: key,
-                                            db,
-                                            latestNote,
-                                        }}
-                                    />
-                                );
-                            }
-                        )
-
-                    // TESTING 3
-                    // Object.entries(notes).map((key, i) => {
-                    //     if (key[0] === settings.noteCategory) {
-                    //         // console.log(key[1]);
-                    //         return Object.keys(key[1]).map((noteId, i) => {
-                    //             // console.log(note);
-                    //             return (
-                    //                 <Note
-                    //                     key={i}
-                    //                     data={{
-                    //                         noteId: noteId,
-                    //                         noteValue:
-                    //                             notes[
-                    //                                 settings.noteCategory
-                    //                             ][noteId],
-                    //                         db,
-                    //                         latestNote,
-                    //                     }}
-                    //                 />
-                    //             );
-                    //         });
-                    //     }
-                    // })
-
-                    // TESTING 2
-                    // Object.entries(notes[settings.noteCategory]).map(
-                    //     (key, i) => {
-                    //         console.log(key);
-                    //         return (
-                    //             <Note
-                    //                 key={i}
-                    //                 data={{
-                    //                     noteId: key[0],
-                    //                     db,
-                    //                     latestNote,
-                    //                 }}
-                    //             />
-                    //         );
-                    //     }
-                    // )
-
-                    // TESTING 1
-                    // Object.keys(notes[settings.noteCategory]).map((key, i) => {
-                    //     // console.log(notes[settings.noteCategory][key]);
-                    //     console.log(notes);
-                    //     return (
-                    //         <Note
-                    //             key={i}
-                    //             data={{
-                    //                 noteId: key,
-                    //                 noteValue:
-                    //                     notes[settings.noteCategory][key],
-                    //                 db,
-                    //                 latestNote,
-                    //             }}
-                    //         />
-                    //     );
-                    // })
-                }
+                {notes &&
+                    notes[settings.noteCategory] &&
+                    Object.entries(notes[settings.noteCategory]).map(
+                        ([key]) => {
+                            return (
+                                <Note
+                                    key={key}
+                                    noteId={key}
+                                    db={db}
+                                    latestNote={latestNote}
+                                />
+                            );
+                        }
+                    )}
             </div>
             <div className='flex justify-center gap-6'>
                 {settings.notesReversed && (

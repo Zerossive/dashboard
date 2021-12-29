@@ -4,7 +4,7 @@ import { FaPlus, FaTrash } from "react-icons/fa";
 import { useGlobalContext } from "../context";
 import Button from "./Button";
 
-function NotesDropdown({ data }) {
+function NotesDropdown(data) {
     const { db, setShowCategoryList } = data;
 
     const { settings, setSettings, user, notes, setNotes } = useGlobalContext();

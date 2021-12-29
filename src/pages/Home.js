@@ -28,7 +28,7 @@ export default function Home() {
             {/* Notes */}
             {settings.showNotes && user && (
                 <div className='w-full lg:flex-1 order-3 p-6'>
-                    <Notes data={{ db: db }} />
+                    <Notes db={db} />
                 </div>
             )}
             {/* Link to settings/signup page */}
