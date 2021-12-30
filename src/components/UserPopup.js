@@ -4,13 +4,17 @@ import { useGlobalContext } from "../context";
 import Button from "./Button";
 import { auth } from "../firebase-config";
 
-function UserPopup({ navbarHeight, setShowUserPopup }) {
+function UserPopup({ userButton, showUserPopup, setShowUserPopup }) {
     const { user, setNotes, setSettings } = useGlobalContext();
 
     // Handle closing popup on clicking outside of component
     const popup = useRef(null);
     const handleClickOutside = (event) => {
-        if (popup.current && !popup.current.contains(event.target)) {
+        if (
+            popup.current &&
+            !popup.current.contains(event.target) &&
+            !userButton.current.contains(event.target)
+        ) {
             setShowUserPopup(false);
         }
     };
@@ -30,7 +34,7 @@ function UserPopup({ navbarHeight, setShowUserPopup }) {
 
     return (
         <div
-            className={`flex flex-wrap flex-col bg-midground shadow-lg p-3 w-max rounded-md absolute top-16 right-0 z-50 animate-growY`}
+            className={`flex flex-wrap flex-col bg-accent shadow-lg p-3 w-max rounded-md absolute top-16 right-0 z-50 animate-growY`}
             ref={popup}
         >
             <h1 className='p-3'>{user.email}</h1>
