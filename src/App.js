@@ -8,15 +8,42 @@ import Settings from "./pages/Settings";
 import Error from "./pages/Error";
 
 function App() {
+    // TESTING
+    const backgroundImageUrl = "";
+    const backgroundBlur = 15;
+    const backgroundBrightness = 20;
+
     return (
         <Router>
-            <main className='min-h-screen bg-background text-white'>
-                <Navbar />
-                <Routes>
-                    <Route path='/' element={<Home />} />
-                    <Route path='/settings' element={<Settings />} />
-                    <Route path='*' element={<Error />} />
-                </Routes>
+            <main
+                className='min-h-screen bg-background text-white bg-cover bg-fixed'
+                style={{
+                    backgroundImage: `url(${backgroundImageUrl})`,
+                }}
+            >
+                {/* Background Blur */}
+                <div
+                    className='w-full h-full min-h-screen'
+                    style={{
+                        WebkitBackdropFilter: `blur(${
+                            backgroundImageUrl && backgroundBlur
+                        }px) brightness(${
+                            backgroundImageUrl && backgroundBrightness
+                        }%)`,
+                        backdropFilter: `blur(${
+                            backgroundImageUrl && backgroundBlur
+                        }px) brightness(${
+                            backgroundImageUrl && backgroundBrightness
+                        }%)`,
+                    }}
+                >
+                    <Navbar />
+                    <Routes>
+                        <Route path='/' element={<Home />} />
+                        <Route path='/settings' element={<Settings />} />
+                        <Route path='*' element={<Error />} />
+                    </Routes>
+                </div>
             </main>
         </Router>
     );

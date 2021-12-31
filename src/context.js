@@ -43,7 +43,6 @@ const AppProvider = ({ children }) => {
                         // console.log(snapshot.val());
                         const data = snapshot.val();
                         setSettings((prevState) => ({
-                            notesReversed: false,
                             noteCategory: "General",
                             noteCategoryList: ["General"],
                             showWeather: true,

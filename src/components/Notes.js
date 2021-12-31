@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ref, update } from "firebase/database";
 import Note from "./Note";
 import Button from "./Button";
@@ -35,6 +35,30 @@ function Notes({ db }) {
         });
         setLatestNote(newId);
     };
+
+    // TESTING
+    const handleHotkey = (e) => {
+        const key = e.key;
+        if (document.activeElement === document.body) {
+            switch (key) {
+                case "n":
+                    createNewNote();
+                    break;
+                case "c":
+                    setShowCategoryList(!showCategoryList);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    };
+    useEffect(() => {
+        document.addEventListener("keypress", handleHotkey, true);
+        return () => {
+            document.removeEventListener("keypress", handleHotkey, true);
+        };
+    });
 
     return (
         <div

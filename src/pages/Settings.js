@@ -9,7 +9,7 @@ import { useGlobalContext } from "../context";
 import Button from "../components/Button";
 import ButtonInline from "../components/ButtonInline";
 import { getDatabase, ref, update } from "firebase/database";
-import { FaHome, FaUser } from "react-icons/fa";
+import { FaHome, FaSignInAlt, FaUser, FaUserPlus } from "react-icons/fa";
 import Toggle from "../components/Toggle";
 
 export default function Settings() {
@@ -40,7 +40,7 @@ export default function Settings() {
             setLoginEmail("");
             setLoginPassword("");
             setErrorMessage("");
-            console.log("Logged in as", loginEmail);
+            console.log("Signed in as", loginEmail);
         } catch (error) {
             setErrorMessage(error.message);
             console.log(error.message);
@@ -89,13 +89,15 @@ export default function Settings() {
         <div className='flex flex-wrap lg:flex-nowrap overflow-hidden animate-fadein'>
             {/* Settings Category */}
             {user && (
-                <div className='bg-midground w-full lg:w-auto lg:h-screen flex flex-col'>
+                <div className='bg-midground w-full lg:w-auto lg:h-[calc(100vh-4rem)] flex flex-col drop-shadow-lg'>
                     <ButtonInline
                         height='50px'
                         onClick={() => {
                             setSettingsCategory("account");
                         }}
-                        classes='lg:justify-start px-12'
+                        classes={`lg:justify-start px-12 ${
+                            settingsCategory === "account" && "bg-accent"
+                        }`}
                     >
                         <FaUser />
                         Account
@@ -105,7 +107,9 @@ export default function Settings() {
                         onClick={() => {
                             setSettingsCategory("home");
                         }}
-                        classes='lg:justify-start px-12'
+                        classes={`lg:justify-start px-12 ${
+                            settingsCategory === "home" && "bg-accent"
+                        }`}
                     >
                         <FaHome />
                         Home
@@ -133,13 +137,13 @@ export default function Settings() {
                         </button>
                     )}
 
-                    {/* Login */}
+                    {/* Sign In */}
                     {!user && (
                         <form
                             className='flex flex-wrap flex-col w-full lg:w-auto'
                             onSubmit={login}
                         >
-                            <h2 className='text-xl pb-3 w-full'>Login</h2>
+                            <h2 className='text-xl pb-3 w-full'>Sign In</h2>
                             <input
                                 className='bg-foreground rounded-md p-3 mb-3'
                                 placeholder='Email'
@@ -158,7 +162,10 @@ export default function Settings() {
                                     setLoginPassword(event.target.value);
                                 }}
                             />
-                            <Button type='submit'>Sign In</Button>
+                            <Button type='submit'>
+                                <FaSignInAlt />
+                                Sign In
+                            </Button>
                         </form>
                     )}
 
@@ -188,21 +195,27 @@ export default function Settings() {
                                 }}
                             />
 
-                            <Button type='submit'>Sign Up</Button>
+                            <Button type='submit'>
+                                <FaUserPlus />
+                                Sign Up
+                            </Button>
                         </form>
                     )}
-                    {/* Already Logged In */}
+                    {/* Already Signed In */}
                     {user && (
                         <>
                             {/* Sign Out */}
-                            <div className='w-full lg:w-auto'>
+                            <div className='w-full'>
                                 <h2 className='text-xl pb-3'>
-                                    User Logged In: {user?.email}
+                                    Email: {user?.email}
                                 </h2>
-                                <Button onClick={logout}>Sign Out</Button>
+                                <Button onClick={logout}>
+                                    <FaSignInAlt />
+                                    Sign Out
+                                </Button>
                             </div>
                             {/* User Profile */}
-                            <div className='w-full lg:w-auto flex flex-col gap-3'>
+                            <div className='w-full flex flex-col gap-3'>
                                 <h2 className='text-xl'>User Profile</h2>
                                 {/* Profile Image */}
                                 <div className='flex flex-wrap gap-3'>
@@ -211,13 +224,20 @@ export default function Settings() {
                                         Current Profile Image:
                                     </h3>
                                     {settings.profileImageUrl && (
-                                        <div className='w-full'>
-                                            <img
-                                                src={settings.profileImageUrl}
-                                                alt='user profile'
-                                                className='rounded-md h-32'
-                                            />
-                                        </div>
+                                        <>
+                                            <div className='w-full'>
+                                                <img
+                                                    src={
+                                                        settings.profileImageUrl
+                                                    }
+                                                    alt='user profile'
+                                                    className='rounded-md h-32'
+                                                />
+                                            </div>
+                                            <p className='w-full'>
+                                                {settings.profileImageUrl}
+                                            </p>
+                                        </>
                                     )}
                                     <input
                                         type='text'
@@ -246,7 +266,7 @@ export default function Settings() {
                         Homepage Settings
                     </h1>
                     {/* Show/hide sections */}
-                    <div className='w-full lg:w-auto'>
+                    <div className='w-full'>
                         <h2 className='text-xl pb-3'>Show/Hide Sections</h2>
                         <div className='flex flex-wrap gap-3'>
                             <Toggle
@@ -285,7 +305,7 @@ export default function Settings() {
                         </div>
                     </div>
                     {/* Calendar */}
-                    <div className='w-full lg:w-auto'>
+                    <div className='w-full'>
                         <h2 className='text-xl pb-3'>Calendar</h2>
                         <Toggle
                             text='12 Hour Clock'
@@ -299,7 +319,7 @@ export default function Settings() {
                         />
                     </div>
                     {/* Notes */}
-                    <div className='w-full lg:w-auto'>
+                    <div className='w-full'>
                         <h2 className='text-xl pb-3'>Notes</h2>
                         <Toggle
                             text='Reverse Note Order'

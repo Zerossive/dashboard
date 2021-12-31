@@ -15,7 +15,7 @@ const Navbar = () => {
     const location = useLocation().pathname.toLowerCase();
 
     return (
-        <nav className='bg-foreground flex content-center gap-3 p-3 h-16'>
+        <nav className='bg-foreground flex content-center gap-3 p-3 h-16 sticky top-0 z-50 drop-shadow-lg'>
             <Link to='/' tabIndex='-1'>
                 <img
                     src={process.env.PUBLIC_URL + "/logo192.png"}
