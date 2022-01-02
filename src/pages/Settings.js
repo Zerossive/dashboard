@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -11,6 +11,8 @@ import ButtonInline from "../components/ButtonInline";
 import { getDatabase, ref, update } from "firebase/database";
 import { FaHome, FaSignInAlt, FaUser, FaUserPlus } from "react-icons/fa";
 import Toggle from "../components/Toggle";
+import { useNavigate } from "react-router-dom";
+import { useSwipeable } from "react-swipeable";
 
 export default function Settings() {
     const { user, setNotes, settings, setSettings } = useGlobalContext();
@@ -31,6 +33,34 @@ export default function Settings() {
     const [showNotes, setShowNotes] = useState(settings.showNotes);
 
     const db = getDatabase();
+
+    const container = useRef();
+
+    // Swipe Navigation
+    let navigate = useNavigate();
+    const handlers = useSwipeable({
+        onSwipedRight: (eventData) => {
+            if (
+                document.activeElement === document.body &&
+                Math.abs(eventData.deltaX) > 100
+            ) {
+                navigate("/");
+            }
+        },
+        onSwiping: (eventData) => {
+            if (
+                document.activeElement === document.body &&
+                eventData.dir === "Right"
+            ) {
+                container.current.style.transform = `translateX(${eventData.deltaX}px)`;
+            }
+        },
+        onSwiped: () => {
+            if (document.activeElement === document.body) {
+                container.current.style.transform = `translateX(0px)`;
+            }
+        },
+    });
 
     // Account
     const login = async (e) => {
@@ -86,7 +116,11 @@ export default function Settings() {
     };
 
     return (
-        <div className='flex flex-wrap lg:flex-nowrap overflow-hidden animate-fadein'>
+        <div
+            className='flex flex-wrap lg:flex-nowrap overflow-hidden animate-fadein'
+            {...handlers}
+            ref={container}
+        >
             {/* Settings Category */}
             {user && (
                 <div className='bg-midground w-full lg:w-auto lg:h-[calc(100vh-4rem)] flex flex-col drop-shadow-lg'>
@@ -270,7 +304,7 @@ export default function Settings() {
                         <h2 className='text-xl pb-3'>Show/Hide Sections</h2>
                         <div className='flex flex-wrap gap-3'>
                             <Toggle
-                                text='Weather'
+                                text='Weather (WIP)'
                                 checked={showWeather}
                                 onClick={() => {
                                     setShowWeather(!showWeather);

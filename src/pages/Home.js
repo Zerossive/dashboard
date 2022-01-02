@@ -2,17 +2,51 @@ import { useGlobalContext } from "../context";
 import { getDatabase } from "firebase/database";
 import Calendar from "../components/Calendar";
 import Notes from "../components/Notes";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
+import { useSwipeable } from "react-swipeable";
+import { useRef } from "react";
 
 export default function Home() {
     const { settings, user } = useGlobalContext();
 
     const db = getDatabase();
 
+    const container = useRef();
+
+    // Swipe Navigation
+    let navigate = useNavigate();
+    const handlers = useSwipeable({
+        onSwipedLeft: (eventData) => {
+            if (
+                document.activeElement === document.body &&
+                Math.abs(eventData.deltaX) > 100
+            ) {
+                navigate("/settings");
+            }
+        },
+        onSwiping: (eventData) => {
+            if (
+                document.activeElement === document.body &&
+                eventData.dir === "Left"
+            ) {
+                container.current.style.transform = `translateX(${eventData.deltaX}px)`;
+            }
+        },
+        onSwiped: () => {
+            if (document.activeElement === document.body) {
+                container.current.style.transform = `translateX(0px)`;
+            }
+        },
+    });
+
     return (
         // Container
-        <div className='flex flex-wrap overflow-hidden animate-fadein'>
+        <div
+            className='flex flex-wrap overflow-hidden animate-fadein'
+            {...handlers}
+            ref={container}
+        >
             {/* Weather */}
             {settings.showWeather && user && (
                 <div className='w-full lg:flex-1 order-2 lg:order-1 p-6'>

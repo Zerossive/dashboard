@@ -36,7 +36,7 @@ function Notes({ db }) {
         setLatestNote(newId);
     };
 
-    // TESTING
+    // Hotkeys
     const handleHotkey = (e) => {
         const key = e.key;
         if (document.activeElement === document.body) {

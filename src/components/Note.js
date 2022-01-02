@@ -36,9 +36,27 @@ function Note({ noteId, db, latestNote }) {
             },
         });
     };
+    // Remove Note
+    const handleNoteDelete = () => {
+        const updates = {};
+        updates[
+            "/users/" +
+                user.uid +
+                "/notes/" +
+                settings.noteCategory +
+                "/" +
+                noteId
+        ] = null;
+
+        update(ref(db), updates);
+        let tempNotes = { ...notes };
+        delete tempNotes[settings.noteCategory][noteId];
+        setNotes(tempNotes);
+    };
     // Handle special inputs
     const handleKeyDown = (e) => {
         const key = e.key;
+        // console.log(key);
         const startPos = e.target.selectionStart;
         let text = e.target;
         if (key === "Escape") {
@@ -55,6 +73,28 @@ function Note({ noteId, db, latestNote }) {
                 startPos + "\t".length,
                 startPos + "\t".length
             );
+        } else if (key === "Enter") {
+            // Case for "Enter"
+            const beforeReturn = text.value.slice(0, startPos);
+            const afterReturn = text.value.slice(startPos);
+            if (beforeReturn.split("\n").at(-1).includes("\t")) {
+                // Case for new tab on enter
+                text.value = beforeReturn + "\n\t" + afterReturn;
+                e.preventDefault();
+                text.setSelectionRange(
+                    startPos + "\n\t".length,
+                    startPos + "\n\t".length
+                );
+            }
+            if (beforeReturn.split("\n").at(-1).includes("\u25CF")) {
+                // Case for new bullet on enter
+                text.value = beforeReturn + "\n \u25CF " + afterReturn;
+                e.preventDefault();
+                text.setSelectionRange(
+                    startPos + "\n \u25CF ".length,
+                    startPos + "\n \u25CF ".length
+                );
+            }
         } else if (key === " " && text.value[startPos - 1] === "*") {
             // Case for "Bullet Point"
             text.value =
@@ -63,8 +103,8 @@ function Note({ noteId, db, latestNote }) {
                 text.value.slice(startPos);
             e.preventDefault();
             text.setSelectionRange(
-                startPos + "\t".length + 1,
-                startPos + "\t".length + 1
+                startPos + "\u25CF ".length,
+                startPos + "\u25CF ".length
             );
         } else if (key === ">" && text.value[startPos - 1] === "-") {
             // Case for "Right Arrow"
@@ -212,24 +252,7 @@ function Note({ noteId, db, latestNote }) {
                     ></TextareaAutosize>
                 </div>
                 <div className='flex lg:opacity-50 lg:group-hover:opacity-100 duration-150'>
-                    <ButtonInline
-                        onClick={() => {
-                            const updates = {};
-                            updates[
-                                "/users/" +
-                                    user.uid +
-                                    "/notes/" +
-                                    settings.noteCategory +
-                                    "/" +
-                                    noteId
-                            ] = null;
-
-                            update(ref(db), updates);
-                            let tempNotes = { ...notes };
-                            delete tempNotes[settings.noteCategory][noteId];
-                            setNotes(tempNotes);
-                        }}
-                    >
+                    <ButtonInline onClick={handleNoteDelete}>
                         <FaTrash />
                     </ButtonInline>
                 </div>
