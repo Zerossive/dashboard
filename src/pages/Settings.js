@@ -35,6 +35,10 @@ export default function Settings() {
     const db = getDatabase();
 
     const container = useRef();
+    const refPassthrough = (el) => {
+        handlers.ref(el);
+        container.current = el;
+    };
 
     // Swipe Navigation
     let navigate = useNavigate();
@@ -119,7 +123,7 @@ export default function Settings() {
         <div
             className='flex flex-wrap lg:flex-nowrap overflow-hidden animate-fadein'
             {...handlers}
-            ref={container}
+            ref={refPassthrough}
         >
             {/* Settings Category */}
             {user && (

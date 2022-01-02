@@ -13,6 +13,10 @@ export default function Home() {
     const db = getDatabase();
 
     const container = useRef();
+    const refPassthrough = (el) => {
+        handlers.ref(el);
+        container.current = el;
+    };
 
     // Swipe Navigation
     let navigate = useNavigate();
@@ -45,7 +49,7 @@ export default function Home() {
         <div
             className='flex flex-wrap overflow-hidden animate-fadein'
             {...handlers}
-            ref={container}
+            ref={refPassthrough}
         >
             {/* Weather */}
             {settings.showWeather && user && (
