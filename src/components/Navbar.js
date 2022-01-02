@@ -6,16 +6,52 @@ import Button from "./Button";
 import UserPopup from "./UserPopup";
 
 const Navbar = () => {
-    const { settings, user } = useGlobalContext();
+    const { settings, user, isMobile } = useGlobalContext();
 
     const [showUserPopup, setShowUserPopup] = useState(false);
 
+    const navRef = useRef(null);
     const userButton = useRef(null);
 
     const location = useLocation().pathname.toLowerCase();
 
+    // Scroll direction capturing
+    const [scroll1, setScroll1] = useState(0);
+    const [scroll2, setScroll2] = useState(0);
+    const [scrollWait, setScrollWait] = useState(false);
+    const [scrollingUp, setScrollingUp] = useState(true);
+    window.onscroll = () => {
+        if (!scrollWait) {
+            isMobile ? setScroll1(window.scrollY) : setScroll2(window.scrollY);
+
+            setScrollWait(true);
+            setTimeout(() => {
+                isMobile
+                    ? setScroll2(window.scrollY)
+                    : setScroll1(window.scrollY);
+                setScrollWait(false);
+                // On scroll down
+                scroll2 - scroll1 < 0 && setScrollingUp(true);
+                // On scroll up
+                scroll2 - scroll1 > 0 && setScrollingUp(false);
+                // Backup check if at top
+                window.scrollY === 0 && setScrollingUp(true);
+
+                // Slide navbar in and out of frame
+                if (scrollingUp || !document.documentElement.scrollTop) {
+                    navRef.current.classList.remove("-translate-y-16");
+                } else {
+                    navRef.current.classList.add("-translate-y-16");
+                }
+            }, 100);
+        }
+    };
+
     return (
-        <nav className='bg-foreground flex content-center gap-3 p-3 h-16 sticky top-0 z-50 drop-shadow-lg'>
+        <nav
+            className='bg-foreground flex content-center gap-3 p-3 h-16 sticky top-0 z-50 drop-shadow-lg duration-75 origin-top'
+            ref={navRef}
+        >
             <Link to='/' tabIndex='-1'>
                 <img
                     src={process.env.PUBLIC_URL + "/logo192.png"}

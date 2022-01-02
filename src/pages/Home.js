@@ -5,7 +5,7 @@ import Notes from "../components/Notes";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useSwipeable } from "react-swipeable";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export default function Home() {
     const { settings, user } = useGlobalContext();
@@ -18,13 +18,17 @@ export default function Home() {
         container.current = el;
     };
 
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
+
     // Swipe Navigation
     let navigate = useNavigate();
     const handlers = useSwipeable({
         onSwipedLeft: (eventData) => {
             if (
                 document.activeElement === document.body &&
-                Math.abs(eventData.deltaX) > 100
+                Math.abs(eventData.deltaX) > 50
             ) {
                 navigate("/settings");
             }

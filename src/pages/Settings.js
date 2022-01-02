@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -40,13 +40,17 @@ export default function Settings() {
         container.current = el;
     };
 
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
+
     // Swipe Navigation
     let navigate = useNavigate();
     const handlers = useSwipeable({
         onSwipedRight: (eventData) => {
             if (
                 document.activeElement === document.body &&
-                Math.abs(eventData.deltaX) > 100
+                Math.abs(eventData.deltaX) > 50
             ) {
                 navigate("/");
             }

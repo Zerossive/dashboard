@@ -26,6 +26,6 @@
     ],
     "start_url": "/",
     "display": "standalone",
-    "theme_color": "hsl(210,30%,30%)",
+    "theme_color": "hsl(210, 30%, 13%)",
     "background_color": "hsl(210, 30%, 13%)"
 }

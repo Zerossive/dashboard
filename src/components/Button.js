@@ -30,7 +30,12 @@ export default function Button(props) {
                 ele.target.style.background = `${background || ""}`;
                 ele.target.style.color = `${color || ""}`;
             }}
-            onClick={onClick}
+            onClick={(e) => {
+                onClick && onClick();
+                setTimeout(() => {
+                    e.target.blur();
+                }, 200);
+            }}
         >
             {props.children}
         </button>
