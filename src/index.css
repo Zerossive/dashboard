@@ -13,6 +13,9 @@ button {
     border-radius: 0.375rem !important;
     overflow: hidden !important;
 }
+.rw-forecast-days-panel {
+    padding: 10px !important;
+}
 .rw-container-right {
     background-color: hsl(210, 30%, 17%) !important;
 }
@@ -20,6 +23,10 @@ button {
     border-color: hsl(210, 30%, 30%) !important;
     border-width: 0px !important;
 }
+.rw-forecast-icon {
+    display: flex !important;
+    justify-content: center !important;
+}
 .svg-0-2-26 {
-    margin: auto !important;
+    /* margin: auto !important; */
 }
