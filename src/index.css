@@ -7,3 +7,19 @@ a,
 button {
     -webkit-tap-highlight-color: transparent;
 }
+
+/* Weather Widget Style Override */
+.rw-container {
+    border-radius: 0.375rem !important;
+    overflow: hidden !important;
+}
+.rw-container-right {
+    background-color: hsl(210, 30%, 17%) !important;
+}
+.rw-today-hr {
+    border-color: hsl(210, 30%, 30%) !important;
+    border-width: 0px !important;
+}
+.svg-0-2-26 {
+    margin: auto !important;
+}

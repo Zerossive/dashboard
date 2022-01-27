@@ -38,7 +38,11 @@ const Navbar = () => {
                 window.scrollY === 0 && setScrollingUp(true);
 
                 // Slide navbar in and out of frame
-                if (scrollingUp || !document.documentElement.scrollTop) {
+                if (
+                    scrollingUp ||
+                    !document.documentElement.scrollTop ||
+                    (!scrollingUp && !isMobile)
+                ) {
                     navRef.current.classList.remove("-translate-y-16");
                 } else {
                     navRef.current.classList.add("-translate-y-16");

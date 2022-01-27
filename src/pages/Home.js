@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useSwipeable } from "react-swipeable";
 import { useEffect, useRef } from "react";
+import Weather from "../components/Weather";
 
 export default function Home() {
     const { settings, user } = useGlobalContext();
@@ -58,7 +59,7 @@ export default function Home() {
             {/* Weather */}
             {settings.showWeather && user && (
                 <div className='w-full lg:flex-1 order-2 lg:order-1 p-6'>
-                    {/* INSERT WEATHER HERE */}
+                    <Weather />
                 </div>
             )}
             {/* Calendar */}

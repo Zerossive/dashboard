@@ -312,7 +312,7 @@ export default function Settings() {
                         <h2 className='text-xl pb-3'>Show/Hide Sections</h2>
                         <div className='flex flex-wrap gap-3'>
                             <Toggle
-                                text='Weather (WIP)'
+                                text='Weather'
                                 checked={showWeather}
                                 onClick={() => {
                                     setShowWeather(!showWeather);
@@ -345,6 +345,20 @@ export default function Settings() {
                                 }}
                             />
                         </div>
+                    </div>
+                    {/* Weather */}
+                    <div className='w-full'>
+                        <h2 className='text-xl pb-3'>Weather</h2>
+                        <Toggle
+                            text='Imperial Format'
+                            checked={settings.weatherFormat}
+                            onClick={() => {
+                                handleSettingsChange(
+                                    "weatherFormat",
+                                    !settings.weatherFormat
+                                );
+                            }}
+                        />
                     </div>
                     {/* Calendar */}
                     <div className='w-full'>
