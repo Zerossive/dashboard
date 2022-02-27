@@ -40,18 +40,30 @@ function WeatherWidget({
         forecastIconColor: "#4BC4F7",
     };
     return (
-        <div className='animate-growfadein'>
-            <ReactWeather
-                isLoading={isLoading}
-                errorMessage={errorMessage}
-                data={data}
-                lang='en'
-                locationLabel={location}
-                unitsLabels={{ temperature: degreesUnit, windSpeed: speedUnit }}
-                showForecast={true}
-                theme={customStyles}
-            />
-        </div>
+        <>
+            {/* Placeholder */}
+            {isLoading && (
+                <div className='bg-midground rounded-md animate-pulse w-full h-96'></div>
+            )}
+            {/* Show weather on load */}
+            {!isLoading && (
+                <div className='animate-'>
+                    <ReactWeather
+                        isLoading={isLoading}
+                        errorMessage={errorMessage}
+                        data={data}
+                        lang='en'
+                        locationLabel={location}
+                        unitsLabels={{
+                            temperature: degreesUnit,
+                            windSpeed: speedUnit,
+                        }}
+                        showForecast={true}
+                        theme={customStyles}
+                    />
+                </div>
+            )}
+        </>
     );
 }
 

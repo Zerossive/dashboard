@@ -79,7 +79,10 @@ const Navbar = () => {
                 <Button
                     height='100%'
                     classes={`px-1 py-1 ${showUserPopup && "bg-accent"}`}
-                    onClick={() => setShowUserPopup(!showUserPopup)}
+                    onClick={() => {
+                        setShowUserPopup(!showUserPopup);
+                        console.log(document.activeElement);
+                    }}
                 >
                     {!settings.profileImageUrl && (
                         <FaUser className='h-full w-auto' />

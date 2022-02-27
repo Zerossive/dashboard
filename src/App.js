@@ -10,8 +10,8 @@ import Error from "./pages/Error";
 function App() {
     // TESTING
     const backgroundImageUrl = "";
-    const backgroundBlur = 15;
-    const backgroundBrightness = 20;
+    const backgroundBlur = 10;
+    const backgroundBrightness = 70;
 
     return (
         <Router>

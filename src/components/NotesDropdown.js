@@ -71,7 +71,7 @@ function NotesDropdown({ db, setShowCategoryList }) {
     };
 
     return (
-        <div className='flex flex-wrap gap-6 justify-center w-full'>
+        <div className='flex flex-wrap gap-6 justify-center w-full bg-midground rounded-md p-6'>
             {errorMessage && (
                 <button
                     className='bg-error w-full flex p-3 rounded-md justify-center animate-growfadein'

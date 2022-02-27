@@ -1,11 +1,12 @@
 import React from "react";
 import Clock from "react-live-clock";
 import { useGlobalContext } from "../context";
+import Events from "./Events";
 
-function Calendar() {
+function Calendar({ db }) {
     const { settings } = useGlobalContext();
     return (
-        <div className='w-full flex flex-col items-center'>
+        <div className='w-full flex flex-col items-center gap-6'>
             {/* Time & Date */}
             <div className='w-full flex flex-col items-center gap-6 text-center'>
                 <h1 className='text-6xl flex items-center gap-3'>
@@ -25,7 +26,10 @@ function Calendar() {
                     <Clock format={"dddd, MMMM Do"} />
                 </h2>
             </div>
-            {/* INSERT EVENTS HERE */}
+            {/* Events */}
+            <div className='w-full'>
+                <Events db={db} />
+            </div>
         </div>
     );
 }

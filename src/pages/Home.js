@@ -65,7 +65,7 @@ export default function Home() {
             {/* Calendar */}
             {settings.showCalendar && user && (
                 <div className='w-full lg:flex-1 order-1 lg:order-2 p-6'>
-                    <Calendar />
+                    <Calendar db={db} />
                 </div>
             )}
             {/* Notes */}

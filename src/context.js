@@ -31,6 +31,7 @@ const AppProvider = ({ children }) => {
         // showNotes: true,
     });
     const [notes, setNotes] = useState({});
+    const [events, setEvents] = useState({});
     useEffect(() => {
         const db = getDatabase();
         const dbRef = ref(db);
@@ -54,6 +55,7 @@ const AppProvider = ({ children }) => {
                             ...data.settings,
                         }));
                         setNotes({ ...data.notes });
+                        setEvents({ ...data.events });
                     }
                 })
                 .catch((error) => {
@@ -73,6 +75,8 @@ const AppProvider = ({ children }) => {
                 setUser,
                 notes,
                 setNotes,
+                events,
+                setEvents,
                 settings,
                 setSettings,
             }}

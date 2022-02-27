@@ -18,7 +18,7 @@ function Toggle(data) {
     return (
         <button
             className={`select-none rounded-md px-4 py-2 flex justify-center gap-6 items-center transition-all duration-75 hover:shadow-md tracking-widest active:scale-95 ${
-                checked ? "dark:bg-accent" : "dark:bg-midground"
+                checked ? "dark:bg-foreground" : "dark:bg-midground"
             } ${classes}`}
             aria-label={`${background} button`}
             style={{
@@ -35,7 +35,12 @@ function Toggle(data) {
                 ele.target.style.background = `${background || ""}`;
                 ele.target.style.color = `${color || ""}`;
             }}
-            onClick={onClick}
+            onClick={(e) => {
+                onClick && onClick();
+                setTimeout(() => {
+                    e.target.blur();
+                }, 200);
+            }}
         >
             {checked && <FaCheck />}
             {!checked && <FaTimes />}

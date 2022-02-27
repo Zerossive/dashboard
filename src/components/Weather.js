@@ -18,6 +18,9 @@ function Weather() {
 
     return (
         <div className='w-full'>
+            {/* Placeholder */}
+            {!coords && <div className='w-full h-96'></div>}
+            {/* Show weather when coords are obtained */}
             {coords && (
                 <WeatherWidget
                     location=''
