@@ -52,6 +52,7 @@ function Events({ db }) {
         setShowEventInput(false);
     };
 
+    // Delete event
     const deleteEvent = (eventId) => {
         const updates = {};
         updates["/users/" + user.uid + "/events/" + eventId] = null;
@@ -62,6 +63,8 @@ function Events({ db }) {
 
         console.log("Deleted event:", eventId);
     };
+
+    // Update year of repeating event
     const updateYear = (eventId, newDate) => {
         const oldEvent = events[eventId];
         deleteEvent(eventId);
@@ -120,8 +123,8 @@ function Events({ db }) {
             // update year if event repeats to keep it at the top of the list
             if (eventDate < today && event.repeat) {
                 const currentYear = new Date().getFullYear();
-                if (currentYear > event.date.slice(0, 4)) {
-                    updateYear(key, currentYear + event.date.slice(4));
+                if (currentYear >= event.date.slice(0, 4)) {
+                    updateYear(key, currentYear + 1 + event.date.slice(4));
                 }
             }
 
@@ -153,9 +156,9 @@ function Events({ db }) {
                         underline
                         value={eventName}
                         onChange={(e) => {
-                            // console.log(e.target.value);
                             setEventName(e.target.value);
                         }}
+                        autofocus
                     />
                     <input
                         type='date'

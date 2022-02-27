@@ -10,6 +10,7 @@ export default function TextInput(data) {
         height,
         width,
         underline,
+        autofocus,
     } = data;
     return (
         <input
@@ -28,6 +29,7 @@ export default function TextInput(data) {
                 height: `${height ? height : "auto"}`,
                 width: `${width ? width : "auto"}`,
             }}
+            autoFocus={autofocus}
         />
     );
 }

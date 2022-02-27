@@ -47,6 +47,7 @@ function Event({ eventId, db, icon, date, name, repeat }) {
             <div className=' flex w-full items-center gap-6 px-3'>
                 <p className='w-1/4 text-right md:text-right whitespace-nowrap'>
                     {shortDate}
+                    {/* {date} */}
                 </p>
                 <p className='w-3/4 py-3'>{name}</p>
             </div>
