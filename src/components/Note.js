@@ -244,7 +244,7 @@ function Note({ noteId, db, latestNote }) {
                 </div>
                 <div className='p-3 flex-grow m-auto'>
                     <TextareaAutosize
-                        className='bg-transparent py-2 w-full border-b-2 border-foreground focus:border-accent focus:outline-none resize-none m-auto'
+                        className='bg-transparent py-2 w-full border-b-2 border-foreground focus:border-accent focus:outline-none resize-none m-auto overflow-hidden'
                         value={noteText}
                         onChange={handleNoteChange}
                         onKeyDown={handleKeyDown}

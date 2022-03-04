@@ -62,12 +62,12 @@ function Notes({ db }) {
 
     return (
         <div
-            className={`flex flex-wrap flex-col ${
+            className={`flex flex-wrap flex-row ${
                 settings.notesReversed && ""
-            } gap-6`}
+            } gap-6 lg:h-[calc(100vh-7rem)] lg:overflow-auto lg:pr-3`}
         >
             {/* Add new note button */}
-            <div className='flex justify-center gap-6'>
+            <div className='flex justify-center gap-6 w-full'>
                 {!settings.notesReversed && (
                     <Button onClick={createNewNote} width='100%' height='50px'>
                         <FaPlus />
@@ -87,7 +87,7 @@ function Notes({ db }) {
 
             {/* Category List */}
             {showCategoryList && (
-                <div className='flex justify-center gap-6 animate-growY'>
+                <div className='flex justify-center gap-6 w-full animate-growY'>
                     <NotesDropdown
                         db={db}
                         setShowCategoryList={setShowCategoryList}
@@ -99,7 +99,7 @@ function Notes({ db }) {
             <div
                 className={`flex flex-wrap flex-col ${
                     !settings.notesReversed && "flex-col-reverse"
-                } gap-6`}
+                } gap-6 w-full`}
             >
                 {notes &&
                     notes[settings.noteCategory] &&
@@ -116,7 +116,7 @@ function Notes({ db }) {
                         }
                     )}
             </div>
-            <div className='flex justify-center gap-6'>
+            <div className='flex justify-center w-full gap-6'>
                 {settings.notesReversed && (
                     <Button onClick={createNewNote} width='100%' height='50px'>
                         <FaPlus />

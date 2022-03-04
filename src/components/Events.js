@@ -3,6 +3,7 @@ import {
     FaBirthdayCake,
     FaCalendarDay,
     FaChevronDown,
+    FaChevronUp,
     FaExclamation,
     FaPlus,
     FaQuestion,
@@ -19,6 +20,7 @@ function Events({ db }) {
     const { user, events, setEvents } = useGlobalContext();
 
     const date = new Date();
+    date.setHours(0, 0, 0, 0);
     const currentDate = date.toISOString().slice(0, 10);
     const [selectedDate, setSelectedDate] = useState(currentDate);
 
@@ -26,6 +28,9 @@ function Events({ db }) {
     const [eventName, setEventName] = useState("");
     const [eventRepeat, setEventRepeat] = useState(false);
     const [selectedIcon, setSelectedIcon] = useState("");
+
+    const [showMore, setShowMore] = useState(false);
+    let showCount = 0;
 
     // Create a new event
     const handleCreateEvent = () => {
@@ -252,13 +257,34 @@ function Events({ db }) {
                 </div>
             )}
 
+            {/* Show less button */}
+            {Object.keys(events).length > 0 && showMore && showCount > 5 && (
+                <button
+                    className='flex w-full justify-center items-center gap-3 hover:text-primary duration-75 p-3 active:scale-90'
+                    onClick={() => setShowMore(false)}
+                >
+                    Show Less
+                    <FaChevronUp />
+                </button>
+            )}
+
             {/* Events */}
             {events && (
                 <div className={`flex flex-col gap-6 animate-growfadein`}>
                     {Object.entries(events)
                         .sort()
-                        .map(([key]) => {
-                            const event = events[key];
+                        .map(([key, event]) => {
+                            // Handle show more state
+                            showCount++;
+                            if (!showMore && showCount > 5) {
+                                return null;
+                            }
+
+                            // Set active if date matches today
+                            let active = false;
+                            if (currentDate == event.date) {
+                                active = true;
+                            }
 
                             return (
                                 <Event
@@ -267,6 +293,7 @@ function Events({ db }) {
                                     date={event.date}
                                     name={event.name}
                                     repeat={event.repeat}
+                                    active={active}
                                     key={key}
                                     db={db}
                                 />
@@ -274,13 +301,16 @@ function Events({ db }) {
                         })}
                 </div>
             )}
-            {/* Show more button */}
-            {/* {Object.keys(events).length > 0 && (
-                <button className='flex w-full justify-center items-center gap-3 hover:text-primary duration-75 p-3 active:scale-90'>
-                    Show More
-                    <FaChevronDown />
+            {/* Show more/less button */}
+            {Object.keys(events).length > 0 && showCount > 5 && (
+                <button
+                    className='flex w-full justify-center items-center gap-3 hover:text-primary duration-75 p-3 active:scale-90'
+                    onClick={() => setShowMore(!showMore)}
+                >
+                    {showMore ? "Show Less" : "Show More"}
+                    {showMore ? <FaChevronUp /> : <FaChevronDown />}
                 </button>
-            )} */}
+            )}
         </div>
     );
 }

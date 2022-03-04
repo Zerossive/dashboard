@@ -12,7 +12,7 @@ import { useGlobalContext } from "../context";
 import ButtonInline from "./ButtonInline";
 import { ref, update } from "firebase/database";
 
-function Event({ eventId, db, icon, date, name, repeat }) {
+function Event({ eventId, db, icon, date, name, repeat, active }) {
     const { user, events, setEvents } = useGlobalContext();
 
     let shortDate = date.slice(5);
@@ -32,9 +32,17 @@ function Event({ eventId, db, icon, date, name, repeat }) {
         delete tempEvents[eventId];
         setEvents(tempEvents);
     };
-
+    // bg-gradient-to-r from-cyan-500 to-blue-500
     return (
-        <div className='bg-midground rounded-md flex items-stretch group overflow-hidden'>
+        <div
+            className={`bg-midground rounded-md flex items-stretch group overflow-hidden ${
+                active &&
+                "bg-gradient-to-r from-[hsl(210,34%,44%)] to-midground"
+            }`}
+        >
+            {/* 
+                accent: "hsl(210,30%,30%)",
+                primary: "hsl(198,91%,63%)", */}
             {icon && (
                 <div className='p-6 m-auto'>
                     {icon === "birthday" && <FaBirthdayCake size={32} />}
@@ -55,8 +63,12 @@ function Event({ eventId, db, icon, date, name, repeat }) {
             <div className='p-3 opacity-50 flex items-center'>
                 {repeat && <FiRepeat />}
             </div>
-            <div className='h-auto lg:opacity-50 lg:group-hover:opacity-100 duration-150'>
-                <ButtonInline onClick={handleDeleteEvent} height='100%'>
+            <div className='h-auto'>
+                <ButtonInline
+                    onClick={handleDeleteEvent}
+                    classes='lg:opacity-50 lg:group-hover:opacity-100 duration-150 bg-transparent'
+                    height='100%'
+                >
                     <FaTrash />
                 </ButtonInline>
             </div>

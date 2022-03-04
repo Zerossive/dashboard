@@ -6,7 +6,7 @@ import Events from "./Events";
 function Calendar({ db }) {
     const { settings } = useGlobalContext();
     return (
-        <div className='w-full flex flex-col items-center gap-6'>
+        <div className='w-full flex flex-col items-center gap-6 lg:h-[calc(100vh-7rem)] lg:overflow-auto lg:px-3'>
             {/* Time & Date */}
             <div className='w-full flex flex-col items-center gap-6 text-center'>
                 <h1 className='text-6xl flex items-center gap-3'>
