@@ -62,9 +62,7 @@ function Notes({ db }) {
 
     return (
         <div
-            className={`flex flex-wrap flex-row ${
-                settings.notesReversed && ""
-            } gap-6 lg:h-[calc(100vh-7rem)] lg:overflow-auto lg:pr-3`}
+            className={`flex flex-col w-full gap-6 lg:h-[calc(100vh-7rem)] lg:overflow-auto lg:px-3`}
         >
             {/* Add new note button */}
             <div className='flex justify-center gap-6 w-full'>

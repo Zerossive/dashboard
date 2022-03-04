@@ -58,19 +58,19 @@ export default function Home() {
         >
             {/* Weather */}
             {settings.showWeather && user && (
-                <div className='w-full lg:flex-1 order-2 lg:order-1 p-6'>
+                <div className='w-full lg:flex-1 order-2 lg:order-1 p-6 lg:px-3'>
                     <Weather />
                 </div>
             )}
             {/* Calendar */}
             {settings.showCalendar && user && (
-                <div className='w-full lg:flex-1 order-1 lg:order-2 p-6'>
+                <div className='w-full lg:flex-1 order-1 lg:order-2 p-6 lg:px-3'>
                     <Calendar db={db} />
                 </div>
             )}
             {/* Notes */}
             {settings.showNotes && user && (
-                <div className='w-full lg:flex-1 order-3 p-6'>
+                <div className='w-full lg:flex-1 order-3 p-6 lg:px-3'>
                     <Notes db={db} />
                 </div>
             )}

@@ -17,7 +17,7 @@ function Weather() {
     }, []);
 
     return (
-        <div className='w-full pl-3'>
+        <div className='w-full lg:h-[calc(100vh-7rem)] lg:overflow-auto lg:px-3'>
             {/* Placeholder */}
             {!coords && <div className='w-full h-96'></div>}
             {/* Show weather when coords are obtained */}

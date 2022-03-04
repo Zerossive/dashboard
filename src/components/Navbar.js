@@ -81,7 +81,6 @@ const Navbar = () => {
                     classes={`px-1 py-1 ${showUserPopup && "bg-accent"}`}
                     onClick={() => {
                         setShowUserPopup(!showUserPopup);
-                        console.log(document.activeElement);
                     }}
                 >
                     {!settings.profileImageUrl && (
