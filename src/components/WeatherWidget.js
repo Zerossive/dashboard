@@ -47,7 +47,10 @@ function WeatherWidget({
             )}
             {/* Show weather on load */}
             {!isLoading && (
-                <div className='animate-'>
+                <a
+                    className='cursor-pointer'
+                    href='https://openweathermap.org/'
+                >
                     <ReactWeather
                         isLoading={isLoading}
                         errorMessage={errorMessage}
@@ -61,7 +64,7 @@ function WeatherWidget({
                         showForecast={true}
                         theme={customStyles}
                     />
-                </div>
+                </a>
             )}
         </>
     );

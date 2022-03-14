@@ -35,11 +35,16 @@ function Events({ db }) {
     // Create a new event
     const handleCreateEvent = () => {
         let newDate = selectedDate;
+        const today = new Date();
+
+        // if input year has passed, update it before creation
+        const currentYear = today.getFullYear();
+        if (currentYear > newDate.slice(0, 4)) {
+            newDate = currentYear + newDate.slice(4);
+        }
+
         const newId =
-            "event_" +
-            newDate.replaceAll("-", "_") +
-            "_" +
-            new Date().getTime();
+            "event_" + newDate.replaceAll("-", "_") + "_" + today.getTime();
         const newEvent = {
             name: eventName,
             icon: selectedIcon,
@@ -257,20 +262,11 @@ function Events({ db }) {
                 </div>
             )}
 
-            {/* Show less button */}
-            {Object.keys(events).length > 0 && showMore && showCount > 5 && (
-                <button
-                    className='flex w-full justify-center items-center gap-3 hover:text-primary duration-75 p-3 active:scale-90'
-                    onClick={() => setShowMore(false)}
-                >
-                    Show Less
-                    <FaChevronUp />
-                </button>
-            )}
-
             {/* Events */}
             {events && (
-                <div className={`flex flex-col gap-6 animate-growfadein`}>
+                <div
+                    className={`flex flex-col gap-6 animate-growfadein order-2`}
+                >
                     {Object.entries(events)
                         .sort()
                         .map(([key, event]) => {
@@ -282,7 +278,7 @@ function Events({ db }) {
 
                             // Set active if date matches today
                             let active = false;
-                            if (currentDate == event.date) {
+                            if (currentDate === event.date) {
                                 active = true;
                             }
 
@@ -301,10 +297,22 @@ function Events({ db }) {
                         })}
                 </div>
             )}
+
+            {/* Show less button */}
+            {Object.keys(events).length > 0 && showCount > 5 && showMore && (
+                <button
+                    className='flex w-full justify-center items-center gap-3 hover:text-primary duration-75 p-3 active:scale-90 order-1'
+                    onClick={() => setShowMore(false)}
+                >
+                    Show Less
+                    <FaChevronUp />
+                </button>
+            )}
+
             {/* Show more/less button */}
             {Object.keys(events).length > 0 && showCount > 5 && (
                 <button
-                    className='flex w-full justify-center items-center gap-3 hover:text-primary duration-75 p-3 active:scale-90'
+                    className='flex w-full justify-center items-center gap-3 hover:text-primary duration-75 p-3 active:scale-90 order-3'
                     onClick={() => setShowMore(!showMore)}
                 >
                     {showMore ? "Show Less" : "Show More"}

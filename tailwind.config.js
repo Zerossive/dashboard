@@ -8,7 +8,9 @@ module.exports = {
                 foreground: "hsl(210,30%,22%)",
                 border: "hsl(210,30%,26%)",
                 accent: "hsl(210,30%,30%)",
-                primary: "hsl(198,91%,63%)",
+                primary: "hsl(210,40%,50%)",
+                secondary: "hsl(210,40%,30%)",
+                tertiary: "hsl(210,40%,20%)",
                 error: "hsl(0,50%,50%)",
             },
             keyframes: {

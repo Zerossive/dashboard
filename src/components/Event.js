@@ -31,18 +31,16 @@ function Event({ eventId, db, icon, date, name, repeat, active }) {
         let tempEvents = { ...events };
         delete tempEvents[eventId];
         setEvents(tempEvents);
+
+        console.log("Deleted event:", eventId);
     };
-    // bg-gradient-to-r from-cyan-500 to-blue-500
     return (
         <div
             className={`bg-midground rounded-md flex items-stretch group overflow-hidden ${
                 active &&
-                "bg-gradient-to-r from-[hsl(210,34%,44%)] to-midground"
+                "bg-gradient-to-r from-primary to-tertiary via-secondary"
             }`}
         >
-            {/* 
-                accent: "hsl(210,30%,30%)",
-                primary: "hsl(198,91%,63%)", */}
             {icon && (
                 <div className='p-6 m-auto'>
                     {icon === "birthday" && <FaBirthdayCake size={32} />}
@@ -52,7 +50,11 @@ function Event({ eventId, db, icon, date, name, repeat, active }) {
                     {icon === "calendar" && <FaCalendarDay size={32} />}
                 </div>
             )}
-            <div className=' flex w-full items-center gap-6 px-3'>
+            <div
+                className={`flex w-full items-center gap-6 px-3 ${
+                    active && "font-bold"
+                }`}
+            >
                 <p className='w-1/4 text-right md:text-right whitespace-nowrap'>
                     {shortDate}
                     {/* {date} */}
