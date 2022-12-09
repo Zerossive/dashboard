@@ -16,6 +16,7 @@ import TextInput from "./TextInput";
 import Toggle from "./Toggle";
 import { ref, update } from "firebase/database";
 import { useGlobalContext } from "../context";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 function Events({ db }) {
 	const { user, events, setEvents } = useGlobalContext();
@@ -143,25 +144,27 @@ function Events({ db }) {
 		});
 	});
 
+	// auto-animation hook
+	const [eventsAnimationParent] = useAutoAnimate();
+	const [eventListAnimationParent] = useAutoAnimate({ duration: 150 });
+
 	return (
-		<div className='flex flex-col gap-6 w-full'>
+		<div className='flex flex-col gap-6 w-full' ref={eventsAnimationParent}>
 			{/* Add new event button */}
 			{!showEventInput && (
-				<div className='animate-fadein'>
-					<Button
-						width='100%'
-						height='50px'
-						onClick={() => setShowEventInput(true)}
-					>
-						<FaPlus />
-						New Event
-					</Button>
-				</div>
+				<Button
+					width='100%'
+					height='50px'
+					onClick={() => setShowEventInput(true)}
+				>
+					<FaPlus />
+					New Event
+				</Button>
 			)}
 
 			{/* New event creation inputs */}
 			{showEventInput && (
-				<div className='bg-midground rounded-md overflow-hidden flex flex-wrap justify-center p-3 animate-growfadein'>
+				<div className='bg-midground rounded-md overflow-hidden flex flex-wrap justify-center p-3'>
 					<TextInput
 						placeholder='Event Name'
 						width='100%'
@@ -290,8 +293,9 @@ function Events({ db }) {
 
 			{/* Events */}
 			{events && (
-				<div
-					className={`flex flex-col gap-6 animate-growfadein order-2`}
+				<ol
+					className={`flex flex-col gap-6 order-2 justify-start`}
+					ref={eventListAnimationParent}
 				>
 					{Object.entries(events)
 						.sort()
@@ -321,7 +325,7 @@ function Events({ db }) {
 								/>
 							);
 						})}
-				</div>
+				</ol>
 			)}
 
 			{/* Show less button */}

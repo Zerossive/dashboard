@@ -5,6 +5,7 @@ import Button from "./Button";
 import { useGlobalContext } from "../context";
 import { FaListUl, FaPlus } from "react-icons/fa";
 import NotesDropdown from "./NotesDropdown";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 function Notes({ db }) {
 	const { user, notes, setNotes, settings } = useGlobalContext();
@@ -60,9 +61,14 @@ function Notes({ db }) {
 		};
 	});
 
+	// auto-animation hook
+	const [notesAnimationParent] = useAutoAnimate();
+	const [noteListAnimationParent] = useAutoAnimate({ duration: 150 });
+
 	return (
 		<div
 			className={`flex flex-col w-full gap-6 lg:h-[calc(100vh-7rem)] lg:overflow-auto`}
+			ref={notesAnimationParent}
 		>
 			{/* Add new note button */}
 			<div className='flex justify-center gap-6 w-full'>
@@ -77,7 +83,7 @@ function Notes({ db }) {
 					</Button>
 				)}
 				<Button
-					height='auto'
+					height='50px'
 					onClick={() => {
 						setShowCategoryList(!showCategoryList);
 					}}
@@ -90,7 +96,7 @@ function Notes({ db }) {
 
 			{/* Category List */}
 			{showCategoryList && (
-				<div className='flex justify-center gap-6 w-full animate-growY'>
+				<div className='flex justify-center gap-6 w-full'>
 					<NotesDropdown
 						db={db}
 						setShowCategoryList={setShowCategoryList}
@@ -99,10 +105,11 @@ function Notes({ db }) {
 			)}
 
 			{/* Note List */}
-			<div
-				className={`flex flex-wrap flex-col ${
-					!settings.notesReversed && "flex-col-reverse"
-				} gap-6 w-full`}
+			<ol
+				className={`flex flex-col basis-full gap-6 justify-start ${
+					!settings.notesReversed && "flex-col-reverse justify-end"
+				}`}
+				ref={noteListAnimationParent}
 			>
 				{notes &&
 					notes[settings.noteCategory] &&
@@ -118,7 +125,9 @@ function Notes({ db }) {
 							);
 						}
 					)}
-			</div>
+			</ol>
+
+			{/* Add new note button when notes are reversed */}
 			<div className='flex justify-center w-full gap-6'>
 				{settings.notesReversed && (
 					<Button onClick={createNewNote} width='100%' height='50px'>

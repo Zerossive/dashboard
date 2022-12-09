@@ -75,7 +75,7 @@ function NotesDropdown({ db, setShowCategoryList }) {
 		<div className='flex flex-wrap gap-6 justify-center w-full bg-midground rounded-md p-6'>
 			{errorMessage && (
 				<button
-					className='bg-error w-full flex p-3 rounded-md justify-center animate-growfadein'
+					className='bg-error w-full flex p-3 rounded-md justify-center'
 					onClick={() => {
 						setErrorMessage("");
 					}}
